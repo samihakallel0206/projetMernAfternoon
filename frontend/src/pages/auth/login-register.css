@@ -1,0 +1,15 @@
+.login .register {
+  height: 100vh;
+}
+.formulaire {
+  /* border: 2px solid gray; */
+  width: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: -1px 1px 2px 1px rgba(0, 0, 255, 0.263);
+  margin: 20px;
+}
+
+.formulaire:hover {
+  box-shadow: 0 1px 3px 2px rgba(0, 0, 255, 0.393);
+}
