@@ -4,8 +4,11 @@ import "./login-register.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../JS/features/authSlice";
+import {useNavigate} from "react-router-dom"
 const Login = () => {
   const dispatch = useDispatch();
+  //!
+  const navigate = useNavigate()
   const [userToConnect, setUserToConnect] = useState({
     email: "",
     password: "",
@@ -19,10 +22,14 @@ const Login = () => {
       login({
         email: userToConnect.email,
         password: userToConnect.password,
+        //!
+        navigate
       })
     );
+    // navigate('/admin/dashboard') ❌
   };
-  // console.log(userToConnect)
+  console.log(userToConnect)
+  
   return (
     <div className="login">
       <h2>LOGIN</h2>
@@ -39,7 +46,7 @@ const Login = () => {
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Control
-            type="password"
+            type="text"
             placeholder="Password"
             name="password"
             value={userToConnect.password}

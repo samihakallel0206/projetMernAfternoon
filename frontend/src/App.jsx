@@ -6,8 +6,17 @@ import AdminDashboard from "./pages/dasboard/AdminDashboard";
 import Unauthorized from "./pages/Unauthorized";
 import NavBare from "./components/NavBare";
 import Footer from "./components/Footer";
+//!
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { current } from "./JS/features/authSlice";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(current());
+  }, [dispatch]);
+  // !-----------------------------------
   return (
     <>
       <NavBare />

@@ -1,12 +1,14 @@
 const express = require("express");
 require("dotenv").config();
-
+//!
+const path = require("path")
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const app = express();
 //middleware
 app.use(express.json());
-app.use("./uploads", express.static("uploads"));
+//!
+app.use("./uploads", express.static(path.join(__dirname, "uploads")));
 app.use(cookieParser());
 app.use(
   cors({
@@ -18,12 +20,10 @@ app.use(
 //connexion to DB
 const connectDB = require("./config/connectDB");
 const seedRoles = require("./config/seed/seedRoles");
-//!
 const seedAdmin = require("./config/seed/seedAdmin");
 connectDB().then(async () => {
   try {
-    await seedRoles();
-    //!
+    await seedRoles();    
     await seedAdmin();
   } catch (error) {
     console.log("Erreur while seeding", error.message);

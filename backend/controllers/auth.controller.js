@@ -19,7 +19,7 @@ exports.register = async (req, res) => {
     const existUser = await User.findOne({ email });
     if (existUser) {
       //!1
-      removeUploadImg(req.file)
+      removeUploadImg(req.file);
       return res.status(400).json({
         success: false,
         errors: [{ message: "Email already exists" }],
@@ -28,7 +28,7 @@ exports.register = async (req, res) => {
     //role exist +normalisation
     if (!roleTitre || typeof roleTitre !== "string") {
       //!2
-      removeUploadImg(req.file)
+      removeUploadImg(req.file);
       return res.status(400).json({
         success: false,
         errors: [{ message: "Role required!!" }],
@@ -39,7 +39,7 @@ exports.register = async (req, res) => {
     const existRole = await Role.findOne({ titre: normRoleTitre });
     if (!existRole) {
       //!3
-      removeUploadImg(req.file)
+      removeUploadImg(req.file);
       return res.status(400).json({
         success: false,
         errors: [{ message: "Role Invalid" }],
@@ -68,7 +68,7 @@ exports.register = async (req, res) => {
     });
   } catch (error) {
     //!4
-    removeUploadImg(req.file)
+    removeUploadImg(req.file);
     res.status(500).json({
       success: false,
       errors: [{ message: "Fail to create user!!" }],
@@ -81,7 +81,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     //check du email?
-
+    console.log(req.body);
     const { email, password } = req.body;
     const foundUser = await User.findOne({ email }).populate("role");
     if (!foundUser) {

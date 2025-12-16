@@ -18,11 +18,18 @@ export const register = createAsyncThunk(
 
 export const login = createAsyncThunk(
   "auth-login",
-  async ({ email, password }, thunkAPI) => {
-    try {
-      const result = await api.post("/auth/login", { email, password });
-      console.log(result);
+  async ({ email, password, navigate }, thunkAPI) => {
+    try {  //api = http://localhost:4500/api (axios)
+      console.log({email,password})
+      const result = await api.post("/auth/login", { email, password });      
+      // console.log(result);
       const user = result.data.user;
+      if (user.role.titre === "ADMIN") {
+        navigate("/admin/dashboard")
+      }
+      else {
+        navigate("/unauthorized")
+      }
       return {
         user,
         message: result.data.message,
