@@ -1,12 +1,11 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-//!
 import { useDispatch } from "react-redux";
 import { register } from "../../JS/features/authSlice";
 
 const Register = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [newUser, setNewuser] = useState({
     userName: "",
     email: "",
@@ -20,16 +19,16 @@ const Register = () => {
   };
   // console.log(newUser)
   const handleRegister = (e) => {
-    e.preventDefault()
-    const data = new FormData()
-    data.append("userName", newUser.userName)
-    data.append("email", newUser.email)
-    data.append("password", newUser.password)
-    data.append("phone", newUser.phone)
-    data.append("roleTitre", newUser.roleTitre)
-    if(newUser.file) data.append("profilePic", newUser.file)
-     dispatch(register(data))
-  }
+    e.preventDefault();
+    const data = new FormData();
+    data.append("userName", newUser.userName);
+    data.append("email", newUser.email);
+    data.append("password", newUser.password);
+    data.append("phone", newUser.phone);
+    data.append("roleTitre", newUser.roleTitre);
+    if (newUser.file) data.append("profilePic", newUser.file);
+    dispatch(register(data));
+  };
   return (
     <div className="register">
       <h1>Create a new USER</h1>

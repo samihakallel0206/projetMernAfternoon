@@ -7,10 +7,10 @@ export const register = createAsyncThunk(
   "auth-register",
   async (newUser, thunkAPI) => {
     try {
-      const result = await api.post("/auth/register", newUser);
-      return { message: result.data.message };
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.errors);
+      const result = await api.post("/auth/register", newUser); //pending
+      return { message: result.data.message }; //fullfiled  data 
+    } catch (error) { 
+      return thunkAPI.rejectWithValue(error.response.data.errors);//rejected
     }
   }
 );
@@ -19,16 +19,16 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk(
   "auth-login",
   async ({ email, password, navigate }, thunkAPI) => {
-    try {  //api = http://localhost:4500/api (axios)
-      console.log({email,password})
-      const result = await api.post("/auth/login", { email, password });      
+    try {
+      //api = http://localhost:4500/api (axios)
+      console.log({ email, password });
+      const result = await api.post("/auth/login", { email, password });
       // console.log(result);
       const user = result.data.user;
       if (user.role.titre === "ADMIN") {
-        navigate("/admin/dashboard")
-      }
-      else {
-        navigate("/unauthorized")
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/unauthorized");
       }
       return {
         user,
@@ -41,13 +41,19 @@ export const login = createAsyncThunk(
 );
 // --------------------------------Logout---------------------
 
-export const logout = createAsyncThunk("auth-logout", async (_, thunkAPI) => {
-  try {
-    await api.post("/auth/logout");
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data.errors);
+export const logout = createAsyncThunk(
+  "auth-logout",
+  //!
+  async (navigate, thunkAPI) => {
+    try {
+      await api.post("/auth/logout");
+      //!
+      navigate("/login");
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.errors);
+    }
   }
-});
+);
 // ---------------------------Current---------------------------
 
 export const current = createAsyncThunk("auth-current", async (_, thunkAPI) => {
@@ -68,7 +74,7 @@ const authSlice = createSlice({
     loading: false,
     errors: null,
     success: null,
-    initializing: false,
+    initializing: true,
   },
   reducers: {
     clearErrors: (state) => {

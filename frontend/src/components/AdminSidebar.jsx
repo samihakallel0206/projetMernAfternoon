@@ -8,7 +8,7 @@ const AdminSidebar = () => {
           <Link to="register">Add User</Link>
         </li>
         <li>
-          <Link to="/admin/dashboard">Manage Users</Link>
+          <Link to="manageusers">Manage Users</Link>
         </li>
         <li>
           <Link to="/admin/dashboard">Setting</Link>

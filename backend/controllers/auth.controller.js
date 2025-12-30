@@ -8,7 +8,7 @@ exports.register = async (req, res) => {
   try {
     const { userName, email, password, phone, roleTitre } = req.body;
     //!image
-    let profilePic = "https://avatar.iran.liara.run/public";
+    let profilePic = "../uploads/avatar.png";
     if (req.file) {
       profilePic = `${req.protocol}://${req.get("host")}/uploads/${
         req.file.filename
@@ -81,7 +81,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     //check du email?
-    console.log(req.body);
+    // console.log(req.body);
     const { email, password } = req.body;
     const foundUser = await User.findOne({ email }).populate("role");
     if (!foundUser) {
@@ -110,7 +110,7 @@ exports.login = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 2 * 60 * 60 * 1000, // 2h
     });
     //response
@@ -135,7 +135,7 @@ exports.logout = async (req, res) => {
     res.clearCookie("token", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     });
     res.status(200).json({
       success: true,

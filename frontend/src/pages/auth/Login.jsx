@@ -28,7 +28,7 @@ const Login = () => {
     );
     // navigate('/admin/dashboard') ❌
   };
-  console.log(userToConnect)
+  // console.log(userToConnect)
   
   return (
     <div className="login">
